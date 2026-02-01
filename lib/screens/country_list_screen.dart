@@ -7,6 +7,7 @@ import '../widgets/search_bar.dart' as custom;
 import '../widgets/region_filter.dart';
 import '../widgets/loading_indicator.dart';
 import '../widgets/empty_state.dart';
+import '../common/constants.dart';
 import 'country_details_screen.dart';
 
 class CountryListScreen extends StatefulWidget {
@@ -21,20 +22,14 @@ class _CountryListScreenState extends State<CountryListScreen> {
   List<Country> filteredCountries = [];
   bool isLoading = true;
   String searchQuery = '';
-  String selectedRegion = 'Toate';
+  String selectedRegion = AppConstants.regions.first;
 
-  final List<String> regions = [
-    'Toate',
-    'Africa',
-    'America',
-    'Asia',
-    'Europe',
-    'Oceania',
-  ];
+  late List<String> regions;
 
   @override
   void initState() {
     super.initState();
+    regions = List.from(AppConstants.regions);
     loadCountries();
   }
 
@@ -102,14 +97,17 @@ class _CountryListScreenState extends State<CountryListScreen> {
 
   Widget _buildCountryList() {
     if (isLoading) {
-      return const Expanded(
-        child: LoadingIndicator(message: 'Se încarcă țările...'),
+      return Expanded(
+        child: LoadingIndicator(message: AppConstants.loadingText),
       );
     }
 
     if (filteredCountries.isEmpty) {
       return const Expanded(
-        child: EmptyState(icon: Icons.search_off, message: 'Nicio țară găsită'),
+        child: EmptyState(
+          icon: Icons.search_off,
+          message: AppConstants.noResultsFound,
+        ),
       );
     }
 

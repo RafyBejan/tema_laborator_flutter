@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../common/constants.dart';
 
 class RegionFilter extends StatelessWidget {
   final List<String> regions;
@@ -18,18 +19,20 @@ class RegionFilter extends StatelessWidget {
       height: 50,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.marginNormal,
+        ),
         itemCount: regions.length,
         itemBuilder: (context, index) {
           String region = regions[index];
           bool isSelected = selectedRegion == region;
           return Container(
-            margin: const EdgeInsets.only(right: 8),
+            margin: const EdgeInsets.only(right: AppConstants.marginSmall),
             child: FilterChip(
               label: Text(region),
               selected: isSelected,
               onSelected: (selected) => onRegionSelected(region),
-              labelStyle: TextStyle(fontWeight: FontWeight.w600),
+              labelStyle: const TextStyle(fontWeight: FontWeight.w600),
             ),
           );
         },

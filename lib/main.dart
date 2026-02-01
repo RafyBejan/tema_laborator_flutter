@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'common/constants.dart';
 import 'screens/country_list_screen.dart';
 
 void main() {
@@ -11,12 +12,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Enciclopedie Țări',
+      title: AppConstants.appTitle,
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
-        fontFamily: 'Roboto',
+        fontFamily: AppConstants.fontFamily,
       ),
       home: const CountryListScreen(),
     );

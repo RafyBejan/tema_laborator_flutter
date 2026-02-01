@@ -5,6 +5,7 @@ import '../widgets/flag_card.dart';
 import '../widgets/info_section.dart';
 import '../widgets/info_row.dart';
 import '../widgets/api_footer.dart';
+import '../common/constants.dart';
 
 class CountryDetailsScreen extends StatelessWidget {
   final Country country;
@@ -48,7 +49,7 @@ class CountryDetailsScreen extends StatelessWidget {
 
   Widget _buildAppBar(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.all(AppConstants.marginNormal),
       child: Row(
         children: [
           IconButton(
@@ -74,28 +75,32 @@ class CountryDetailsScreen extends StatelessWidget {
 
   Widget _buildGeneralInfo() {
     return InfoSection(
-      title: 'Informații Generale',
+      title: AppConstants.generalInfoTitle,
       children: [
         InfoRow(
           icon: Icons.location_city,
-          label: 'Capitală',
+          label: AppConstants.capitalLabel,
           value: country.capital,
         ),
         InfoRow(
           icon: Icons.people,
-          label: 'Populație',
+          label: AppConstants.populationLabel,
           value: CountryFormatter.formatPopulation(country.population),
         ),
         InfoRow(
           icon: Icons.terrain,
-          label: 'Suprafață',
+          label: AppConstants.areaLabel,
           value: CountryFormatter.formatArea(country.area),
         ),
-        InfoRow(icon: Icons.public, label: 'Regiune', value: country.region),
+        InfoRow(
+          icon: Icons.public,
+          label: AppConstants.regionLabel,
+          value: country.region,
+        ),
         if (country.subregion.isNotEmpty)
           InfoRow(
             icon: Icons.map,
-            label: 'Subregiune',
+            label: AppConstants.subregionLabel,
             value: country.subregion,
           ),
       ],
@@ -104,14 +109,18 @@ class CountryDetailsScreen extends StatelessWidget {
 
   Widget _buildCulturalInfo() {
     return InfoSection(
-      title: 'Informații Financiare și Culturale',
+      title: AppConstants.culturalInfoTitle,
       children: [
         InfoRow(
           icon: Icons.monetization_on,
-          label: 'Monedă',
+          label: AppConstants.currencyLabel,
           value: country.currency,
         ),
-        InfoRow(icon: Icons.language, label: 'Limbă', value: country.language),
+        InfoRow(
+          icon: Icons.language,
+          label: AppConstants.languageLabel,
+          value: country.language,
+        ),
       ],
     );
   }

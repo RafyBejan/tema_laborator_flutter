@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../models/country.dart';
+import '../common/constants.dart';
 
 class CountryCard extends StatelessWidget {
   final Country country;
@@ -11,18 +12,20 @@ class CountryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: AppConstants.elevationCard,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusLarge),
+      ),
       child: InkWell(
         onTap: onTap,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusLarge),
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(AppConstants.paddingNormal),
           child: Row(
             children: [
-              _buildFlag(),
+              _CountryFlag(country: country),
               const SizedBox(width: 16),
-              _buildInfo(),
+              _CountryInfo(country: country),
               const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
             ],
           ),
@@ -30,13 +33,21 @@ class CountryCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildFlag() {
+/// Widget-ul pentru afișarea steagului țării
+class _CountryFlag extends StatelessWidget {
+  final Country country;
+
+  const _CountryFlag({required this.country});
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       width: 80,
       height: 60,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusNormal),
         boxShadow: [
           BoxShadow(
             color: Colors.black.withOpacity(0.2),
@@ -46,7 +57,7 @@ class CountryCard extends StatelessWidget {
         ],
       ),
       child: ClipRRect(
-        borderRadius: BorderRadius.circular(8),
+        borderRadius: BorderRadius.circular(AppConstants.borderRadiusNormal),
         child: Image.network(
           country.flag,
           fit: BoxFit.cover,
@@ -60,20 +71,21 @@ class CountryCard extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _buildInfo() {
+/// Widget-ul pentru afișarea informațiilor țării
+class _CountryInfo extends StatelessWidget {
+  final Country country;
+
+  const _CountryInfo({required this.country});
+
+  @override
+  Widget build(BuildContext context) {
     return Expanded(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            country.name,
-            style: const TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
-            ),
-          ),
+          Text(country.name, style: AppConstants.subheadingStyle),
           const SizedBox(height: 4),
           Row(
             children: [
@@ -89,10 +101,15 @@ class CountryCard extends StatelessWidget {
           ),
           const SizedBox(height: 4),
           Container(
-            padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+            padding: const EdgeInsets.symmetric(
+              horizontal: AppConstants.paddingSmall,
+              vertical: 2,
+            ),
             decoration: BoxDecoration(
               color: Colors.blue.shade100,
-              borderRadius: BorderRadius.circular(4),
+              borderRadius: BorderRadius.circular(
+                AppConstants.borderRadiusSmall,
+              ),
             ),
             child: Text(
               country.region,
