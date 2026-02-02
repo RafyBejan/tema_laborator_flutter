@@ -27,13 +27,7 @@ class CountryListHeader extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          Text(
-            '$countryCount țări',
-            style: TextStyle(
-              fontSize: 16,
-              color: Colors.white.withOpacity(0.9),
-            ),
-          ),
+          Text('$countryCount țări', style: TextStyle(fontSize: 16)),
         ],
       ),
     );

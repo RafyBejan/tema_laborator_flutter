@@ -2,8 +2,15 @@ import 'package:flutter/material.dart';
 import '../models/country.dart';
 import '../common/constants.dart';
 
+/// Card reutilizabil pentru a afisa o tara in lista
+///
+/// Arata steagul, numele si capitala tarii
+/// Tap-ul pe card declanseaza callback-ul onTap
 class CountryCard extends StatelessWidget {
+  /// Obiectul tarii de afisat
   final Country country;
+
+  /// Callback declansat cand se apasa pe card
   final VoidCallback onTap;
 
   const CountryCard({super.key, required this.country, required this.onTap});
@@ -12,6 +19,7 @@ class CountryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       margin: const EdgeInsets.only(bottom: 12),
+      // Elevation pentru efect de "raise" al cardului
       elevation: AppConstants.elevationCard,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusLarge),
@@ -23,9 +31,12 @@ class CountryCard extends StatelessWidget {
           padding: const EdgeInsets.all(AppConstants.paddingNormal),
           child: Row(
             children: [
+              // Steagul tarii (80x60 px)
               _CountryFlag(country: country),
               const SizedBox(width: 16),
+              // Informatii: Nume si capitala
               _CountryInfo(country: country),
+              // Arrow pentru a indica ca e clickable
               const Icon(Icons.arrow_forward_ios, color: Colors.grey, size: 20),
             ],
           ),
@@ -35,8 +46,12 @@ class CountryCard extends StatelessWidget {
   }
 }
 
-/// Widget-ul pentru afișarea steagului țării
+/// Widget-ul privat pentru afisarea steagului tarii
+///
+/// Arata o imagine PNG a steagului cu border radius
+/// In caz de eroare la incarcare, arata un placeholder gri
 class _CountryFlag extends StatelessWidget {
+  /// Obiectul tarii de care ii extragem flag URL-ul
   final Country country;
 
   const _CountryFlag({required this.country});
@@ -48,9 +63,10 @@ class _CountryFlag extends StatelessWidget {
       height: 60,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusNormal),
+        // Shadow pentru efect de "inaltare"
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.2),
+            color: Colors.black.withValues(alpha: 0.2),
             blurRadius: 4,
             offset: const Offset(0, 2),
           ),
@@ -58,9 +74,11 @@ class _CountryFlag extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(AppConstants.borderRadiusNormal),
+        // Incarca imaginea steagului din URL (de la flagcdn.com)
         child: Image.network(
           country.flag,
           fit: BoxFit.cover,
+          // Daca imaginea nu se incarca, arata un placeholder
           errorBuilder: (context, error, stackTrace) {
             return Container(
               color: Colors.grey.shade300,
@@ -73,8 +91,11 @@ class _CountryFlag extends StatelessWidget {
   }
 }
 
-/// Widget-ul pentru afișarea informațiilor țării
+/// Widget-ul privat pentru afisarea informatiilor tarii
+///
+/// Arata numele si capitala tarii in format vertical
 class _CountryInfo extends StatelessWidget {
+  /// Obiectul tarii pentru info
   final Country country;
 
   const _CountryInfo({required this.country});
